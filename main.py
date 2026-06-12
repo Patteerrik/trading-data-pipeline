@@ -1,25 +1,37 @@
 from src.extract import extract_market_data
 from src.load import save_raw_data
 from src.transform import add_daily_returns
+
+
 def main():
-    ticker = "SPY"
+    tickers = [
+        "SPY",
+        "QQQ",
+        "GLD",
+        "TLT",
+    ]
+
     start_date = "2020-01-01"
     end_date = "2025-12-31"
 
-    data = extract_market_data(
-        ticker, 
-        start_date, 
-        end_date
-    )
+    for ticker in tickers:
+        data = extract_market_data(
+            ticker, 
+            start_date, 
+            end_date
+        )
 
-    data = add_daily_returns(data)
+        data = add_daily_returns(data)
 
-    save_raw_data(
-        data,
-        "data/raw/spy_raw.csv",
-    )
+        save_raw_data(
+            data,
+            f"data/raw/{ticker.lower}_raw.csv",
+        )
 
-    print(data.head())
+        print(
+            f"Downloaded {ticker}: "
+            f"{len(data)} row"
+        )
 
 if __name__ == "__main__":
     main()
