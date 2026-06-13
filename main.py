@@ -1,7 +1,18 @@
 from src.extract import extract_market_data
-from src.load import save_raw_data
+from src.load import save_raw_data, save_processed_data
 from src.transform import add_daily_returns
 from src.transform import add_moving_averages
+from src.spark_transform import (
+    create_spark_session,
+    read_market_data,
+)
+
+spark = create_spark_session()
+
+print(
+    "Spark version:",
+    spark.version,
+)
 
 
 def main():
@@ -36,5 +47,19 @@ def main():
             f"data/processed/{ticker.lower()}_processed.csv",
         )
 
+        save_processed_data(
+            data,
+            f"data/processed/{ticker.lower()}_processed.parquet",
+        )
+
 if __name__ == "__main__":
     main()
+
+spark = create_spark_session()
+
+df = read_market_data(
+    spark,
+    "data/raw/spy_raw.csv",
+)
+
+df.printSchema()
