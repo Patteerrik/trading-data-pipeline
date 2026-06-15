@@ -5,13 +5,8 @@ from src.transform import add_moving_averages
 from src.spark_transform import (
     create_spark_session,
     read_market_data,
-)
-
-spark = create_spark_session()
-
-print(
-    "Spark version:",
-    spark.version,
+    add_test_column,
+    save_spark_data,
 )
 
 
@@ -55,11 +50,19 @@ def main():
 if __name__ == "__main__":
     main()
 
-spark = create_spark_session()
 
-df = read_market_data(
-    spark,
-    "data/raw/spy_raw.csv",
-)
+    spark = create_spark_session()
 
-df.printSchema()
+    df = read_market_data(
+        spark,
+        "data/raw/spy_raw.csv",
+    )
+
+    df = add_test_column(df)
+
+    save_spark_data(
+    df,
+    "data/spark/spy_spark_processed.parquet",
+    )
+
+    df.printSchema()

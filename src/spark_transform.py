@@ -1,4 +1,6 @@
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import col 
+
 
 def create_spark_session():
     spark = (
@@ -18,3 +20,16 @@ def read_market_data(spark, filepath):
     )
 
     return df
+
+
+def add_test_column(df):
+    df = df.withColumn(
+        "Close_x2",
+        col("Close") * 2,
+    )
+
+    return df
+
+
+def save_spark_data(df, filepath):
+    df.write.mode("overwrite").parquet(filepath)
