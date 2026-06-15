@@ -10,7 +10,8 @@ A simple Data Engineering project built using Python and financial market data.
 - Process multiple tickers
 - Store raw and processed datasets
 - Store processed data in CSV and Parquet formats
-- Read market data using PySpark
+- Read and transform market data using PySpark
+- Write transformed datasets using PySpark
 - Structured ETL pipeline
 
 ## Technologies
@@ -24,6 +25,6 @@ A simple Data Engineering project built using Python and financial market data.
 
 ## Planned Improvements
 
-- Perform data transformations using PySpark
+- Calculate moving averages using PySpark
+- Calculate daily returns using PySpark
 - Add additional market indicators
-- Explore Spark-based data processing workflows
