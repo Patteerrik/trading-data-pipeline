@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col 
+from pyspark.sql.functions import col, avg 
+from pyspark.sql.window import Window
 
 
 def create_spark_session():
@@ -33,3 +34,18 @@ def add_test_column(df):
 
 def save_spark_data(df, filepath):
     df.write.mode("overwrite").parquet(filepath)
+
+
+def add_20ma(df):
+    window_spec = (
+        Window
+        .orderBy("Price")
+        .rowsBetween(-19, 0)
+    )
+
+    df = df.withColumn(
+        "20MA_Spark",
+        avg("Close").over(window_spec),
+    )
+
+    return df

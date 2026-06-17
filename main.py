@@ -8,6 +8,7 @@ from src.spark_transform import (
     add_test_column,
     save_spark_data,
 )
+from src.spark_transform import add_20ma
 
 
 def main():
@@ -59,6 +60,7 @@ if __name__ == "__main__":
     )
 
     df = add_test_column(df)
+    df = add_20ma(df)
 
     save_spark_data(
     df,
