@@ -7,6 +7,7 @@ from src.spark_transform import (
     read_market_data,
     add_test_column,
     save_spark_data,
+    add_daily_return,
 )
 from src.spark_transform import add_20ma
 
@@ -60,7 +61,10 @@ if __name__ == "__main__":
     )
 
     df = add_test_column(df)
+
     df = add_20ma(df)
+    
+    df = add_daily_return(df)
 
     save_spark_data(
     df,

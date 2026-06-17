@@ -1,6 +1,11 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, avg 
 from pyspark.sql.window import Window
+from pyspark.sql.functions import (
+    col,
+    avg,
+    lag,
+)
 
 
 def create_spark_session():
@@ -46,6 +51,20 @@ def add_20ma(df):
     df = df.withColumn(
         "20MA_Spark",
         avg("Close").over(window_spec),
+    )
+
+    return df
+
+
+def add_daily_return(df):
+    window_spec = (
+        Window
+        .orderBy("Price")
+    )
+
+    df = df.withColumn(
+        "Previous_Close",
+        lag("Close").over(window_spec),
     )
 
     return df
