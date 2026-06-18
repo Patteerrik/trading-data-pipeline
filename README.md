@@ -29,6 +29,17 @@ daily returns.
 
 ![PySpark Output](assets/pyspark_output.png)
 
+## Sample Dataset
+
+Tickers:
+- SPY (S&P 500 ETF)
+- QQQ (Nasdaq 100 ETF)
+- GLD (Gold ETF)
+- TLT (20+ Year Treasury Bond ETF)
+
+Period:
+- 2020-01-01 to 2025-12-31
+
 ## Features
 
 - Extract market data from Yahoo Finance
