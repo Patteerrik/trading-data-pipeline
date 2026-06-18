@@ -60,11 +60,19 @@ if __name__ == "__main__":
         "data/raw/spy_raw.csv",
     )
 
-    df = add_test_column(df)
+    # df = add_test_column(df)
 
     df = add_20ma(df)
     
     df = add_daily_return(df)
+
+    df.select(
+        "Price",
+        "Close",
+        "20MA_Spark",
+        "Previous_Close",
+        "Daily_Return_Spark",
+    ).show(10)
 
     save_spark_data(
     df,
