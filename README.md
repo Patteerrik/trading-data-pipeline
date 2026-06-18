@@ -1,33 +1,77 @@
 # Trading Data Pipeline
 
-A simple Data Engineering project built using Python and financial market data.
+A Data Engineering project that extracts financial market data,
+processes it using Pandas and PySpark, and stores the results in
+CSV and Parquet formats.
+
+## Project Workflow
+
+```text
+Yahoo Finance
+        ↓
+   Extract Data
+        ↓
+      Pandas
+        ↓
+  CSV / Parquet
+        ↓
+     PySpark
+        ↓
+Market Indicators
+        ↓
+     Parquet
+```
+
+## Example Output
+
+PySpark calculates market indicators such as moving averages and
+daily returns.
+
+![PySpark Output](assets/pyspark_output.png)
 
 ## Features
 
 - Extract market data from Yahoo Finance
-- Calculate daily returns
-- Generate 20MA, 50MA and 200MA indicators
-- Process multiple tickers
-- Store raw and processed datasets
-- Store processed data in CSV and Parquet formats
-- Read and transform market data using PySpark
-- Generate moving averages using PySpark
-- Write transformed datasets using PySpark
+- Process multiple market tickers
+- Calculate daily returns using Pandas
+- Calculate moving averages using Pandas
+- Calculate moving averages using PySpark
+- Calculate daily returns using PySpark
+- Store datasets in CSV format
+- Store datasets in Parquet format
 - Structured ETL pipeline
 
 ## Technologies
 
 - Python
 - Pandas
-- yfinance
 - PySpark
 - PyArrow
+- yfinance
 - GitHub Codespaces
 
-## Planned Improvements
+## Project Structure
+
+```text
+trading-data-pipeline/
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── spark/
+│
+├── src/
+│   ├── extract.py
+│   ├── transform.py
+│   ├── load.py
+│   └── spark_transform.py
+│
+├── main.py
+└── README.md
+```
 
 ## Planned Improvements
 
-- Calculate daily returns using PySpark
-- Add additional market indicators
-- Explore Spark-based data processing workflows
+- Implement additional market indicators
+- Expand PySpark transformations
+- Explore larger-scale Spark workflows
