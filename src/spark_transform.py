@@ -1,11 +1,6 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, avg 
+from pyspark.sql.functions import col, avg, lag 
 from pyspark.sql.window import Window
-from pyspark.sql.functions import (
-    col,
-    avg,
-    lag,
-)
 
 
 def create_spark_session():
@@ -65,6 +60,14 @@ def add_daily_return(df):
     df = df.withColumn(
         "Previous_Close",
         lag("Close").over(window_spec),
+    )
+
+    df = df.withColumn(
+        "Daily_Return_Spark",
+        (
+            (col("Close") - col("Previous_Close"))
+            / col("Previous_Close")
+        ),
     )
 
     return df
