@@ -27,7 +27,7 @@ Processed CSV / Parquet
 PySpark calculates market indicators such as moving averages,
 daily returns and 20-day volatility.
 
-![PySpark Output](assets/pyspark_output.png.png)
+![PySpark Output](assets/pyspark_output.png)
 
 ## Sample Dataset
 
