@@ -6,7 +6,6 @@ from src.transform import add_volatility
 from src.spark_transform import (
     create_spark_session,
     read_market_data,
-    add_test_column,
     add_20ma,
     save_spark_data,
     add_daily_return,
@@ -63,8 +62,6 @@ if __name__ == "__main__":
         spark,
         "data/raw/spy_raw.csv",
     )
-
-    # df = add_test_column(df)
 
     df = add_20ma(df)
     
