@@ -11,23 +11,23 @@ Yahoo Finance
         ↓
    Extract Data
         ↓
-      Pandas
+   Raw CSV Files
         ↓
-  CSV / Parquet
+ Pandas Transformations
         ↓
-     PySpark
+Processed CSV / Parquet
         ↓
-Market Indicators
+ PySpark Transformations
         ↓
-     Parquet
+ Spark Parquet Output
 ```
 
 ## Example Output
 
-PySpark calculates market indicators such as moving averages and
-daily returns.
+PySpark calculates market indicators such as moving averages,
+daily returns and 20-day volatility.
 
-![PySpark Output](assets/pyspark_output.png)
+![PySpark Output](assets/pyspark_output.png.png)
 
 ## Sample Dataset
 
@@ -45,12 +45,14 @@ Period:
 - Extract market data from Yahoo Finance
 - Process multiple market tickers
 - Calculate daily returns using Pandas
+- Calculate daily returns using PySpark
 - Calculate moving averages using Pandas
 - Calculate moving averages using PySpark
-- Calculate daily returns using PySpark
 - Store datasets in CSV format
 - Store datasets in Parquet format
 - Structured ETL pipeline
+- Calculate 20-day volatility using Pandas
+- Calculate 20-day volatility using PySpark
 
 ## Technologies
 
@@ -83,6 +85,6 @@ trading-data-pipeline/
 
 ## Planned Improvements
 
-- Implement additional market indicators
-- Expand PySpark transformations
-- Explore larger-scale Spark workflows
+- Add additional market indicators such as ATR or rolling volume metrics
+- Expand the PySpark pipeline with more transformations and output validation
+- Explore a cloud-based version of the pipeline using Azure or Databricks
