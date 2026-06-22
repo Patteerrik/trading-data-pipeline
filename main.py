@@ -55,19 +55,31 @@ def main():
 if __name__ == "__main__":
     main()
 
+    tickers = [
+        "SPY",
+        "QQQ",
+        "GLD",
+        "TLT",
+    ]
 
     spark = create_spark_session()
 
-    df = read_market_data(
-        spark,
-        "data/raw/spy_raw.csv",
-    )
+    for ticker in tickers:
+        df = read_market_data(
+            spark,
+            f"data/raw/{ticker.lower()}_raw.csv",
+        )
 
-    df = add_20ma(df)
-    
-    df = add_daily_return(df)
+        df = add_20ma(df)
 
-    df = add_spark_volatility(df)
+        df = add_daily_return(df)
+
+        df = add_spark_volatility(df)
+
+        save_spark_data(
+            df,
+            f"data/spark/{ticker.lower()}_spark_processed.parquet",
+        )
 
     df.select(
         "Price",
@@ -77,10 +89,5 @@ if __name__ == "__main__":
         "Daily_Return_Spark",
         "Volatility_20D_Spark",
     ).show(10)
-
-    save_spark_data(
-    df,
-    "data/spark/spy_spark_processed.parquet",
-    )
 
     df.printSchema()
