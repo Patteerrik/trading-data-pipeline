@@ -110,3 +110,4 @@ trading-data-pipeline/
 - Add additional market indicators such as ATR or rolling volume metrics
 - Expand the PySpark pipeline with more transformations and output validation
 - Explore a cloud-based version of the pipeline using Azure or Databricks
+- Explore Azure Blob Storage for processed Parquet output
