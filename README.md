@@ -24,8 +24,9 @@ Processed CSV / Parquet
 
 ## Example Output
 
-PySpark calculates market indicators such as moving averages,
-daily returns and 20-day volatility.
+The PySpark pipeline processes multiple market datasets and
+calculates indicators such as moving averages, daily returns
+and 20-day volatility before storing the results as Parquet files.
 
 ![PySpark Output](assets/pyspark_output.png)
 
@@ -43,16 +44,34 @@ Period:
 ## Features
 
 - Extract market data from Yahoo Finance
-- Process multiple market tickers
+- Process multiple market tickers using both Pandas and PySpark
 - Calculate daily returns using Pandas
 - Calculate daily returns using PySpark
 - Calculate moving averages using Pandas
 - Calculate moving averages using PySpark
+- Calculate 20-day volatility using Pandas
+- Calculate 20-day volatility using PySpark
 - Store datasets in CSV format
 - Store datasets in Parquet format
 - Structured ETL pipeline
-- Calculate 20-day volatility using Pandas
-- Calculate 20-day volatility using PySpark
+
+## PySpark Output
+
+The PySpark pipeline currently processes the following tickers:
+
+- SPY
+- QQQ
+- GLD
+- TLT
+
+Each ticker is stored as a separate Parquet output in:
+
+```text
+data/spark/
+├── spy_spark_processed.parquet
+├── qqq_spark_processed.parquet
+├── gld_spark_processed.parquet
+└── tlt_spark_processed.parquet
 
 ## Technologies
 
@@ -67,6 +86,9 @@ Period:
 
 ```text
 trading-data-pipeline/
+│
+├── assets/
+│   └── pyspark_output.png
 │
 ├── data/
 │   ├── raw/
