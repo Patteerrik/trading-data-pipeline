@@ -7,7 +7,7 @@ CSV and Parquet formats.
 ## Project Workflow
 
 ```text
-Yahoo Finance
+   Yahoo Finance
         ↓
    Extract Data
         ↓
