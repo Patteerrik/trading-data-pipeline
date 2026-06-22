@@ -2,14 +2,16 @@ from src.extract import extract_market_data
 from src.load import save_raw_data, save_processed_data
 from src.transform import add_daily_returns
 from src.transform import add_moving_averages
+from src.transform import add_volatility
 from src.spark_transform import (
     create_spark_session,
     read_market_data,
     add_test_column,
+    add_20ma,
     save_spark_data,
     add_daily_return,
+    add_spark_volatility,
 )
-from src.spark_transform import add_20ma
 
 
 def main():
@@ -31,6 +33,8 @@ def main():
         )
 
         data = add_daily_returns(data)
+
+        data = add_volatility(data)
 
         data = add_moving_averages(data)
 
@@ -66,12 +70,15 @@ if __name__ == "__main__":
     
     df = add_daily_return(df)
 
+    df = add_spark_volatility(df)
+
     df.select(
         "Price",
         "Close",
         "20MA_Spark",
         "Previous_Close",
         "Daily_Return_Spark",
+        "Volatility_20D_Spark",
     ).show(10)
 
     save_spark_data(

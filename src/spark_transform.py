@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, avg, lag 
+from pyspark.sql.functions import col, avg, lag, stddev
 from pyspark.sql.window import Window
 
 
@@ -68,6 +68,21 @@ def add_daily_return(df):
             (col("Close") - col("Previous_Close"))
             / col("Previous_Close")
         ),
+    )
+
+    return df
+
+
+def add_spark_volatility(df):
+    window_spec = (
+        Window
+        .orderBy("price")
+        .rowsBetween(-19, 0)
+    )
+
+    df = df.withColumn(
+        "Volatility_20D_Spark",
+        stddev("Daily_Return_Spark").over(window_spec),
     )
 
     return df
