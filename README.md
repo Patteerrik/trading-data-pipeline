@@ -76,6 +76,7 @@ data/spark/
 ├── qqq_spark_processed.parquet
 ├── gld_spark_processed.parquet
 └── tlt_spark_processed.parquet
+```
 
 ## Technologies
 
