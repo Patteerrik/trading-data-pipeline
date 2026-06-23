@@ -1,25 +1,28 @@
 # Trading Data Pipeline
 
 A Data Engineering project that extracts financial market data,
-processes it using Pandas and PySpark, and stores the results in
-CSV and Parquet formats.
+processes it with Pandas and PySpark, stores the results in
+CSV and Parquet formats, and uploads processed Parquet output
+to Azure Blob Storage.
 
 ## Project Workflow
 
 ```text
-   Yahoo Finance
-        ↓
-   Extract Data
-        ↓
-   Raw CSV Files
-        ↓
- Pandas Transformations
-        ↓
+Yahoo Finance
+    ↓
+Extract Data
+    ↓
+Raw CSV Files
+    ↓
+Pandas Transformations
+    ↓
 Processed CSV / Parquet
-        ↓
- PySpark Transformations
-        ↓
- Spark Parquet Output
+    ↓
+PySpark Transformations
+    ↓
+Spark Parquet Output
+    ↓
+Azure Blob Storage
 ```
 
 ## Example Output
@@ -54,6 +57,7 @@ Period:
 - Store datasets in CSV format
 - Store datasets in Parquet format
 - Structured ETL pipeline
+- Upload processed Parquet files to Azure Blob Storage
 
 ## PySpark Output
 
@@ -80,6 +84,9 @@ data/spark/
 - PySpark
 - PyArrow
 - yfinance
+- Azure Blob Storage
+- python-dotenv
+- azure-storage-blob
 - GitHub Codespaces
 
 ## Project Structure
@@ -99,7 +106,8 @@ trading-data-pipeline/
 │   ├── extract.py
 │   ├── transform.py
 │   ├── load.py
-│   └── spark_transform.py
+│   ├── spark_transform.py
+│   └── upload_to_azure.py
 │
 ├── main.py
 └── README.md
@@ -107,7 +115,9 @@ trading-data-pipeline/
 
 ## Planned Improvements
 
-- Add additional market indicators such as ATR or rolling volume metrics
-- Expand the PySpark pipeline with more transformations and output validation
-- Explore a cloud-based version of the pipeline using Azure or Databricks
-- Explore Azure Blob Storage for processed Parquet output
+- Support uploading multiple processed files to Azure Blob Storage
+- Make the upload step reusable for different file types and containers
+- Add basic validation and logging to the transformation and upload steps
+- Add more market indicators, such as ATR and rolling volume
+- Expand the PySpark pipeline with additional transformations
+- Explore a Databricks-based version of the pipeline
