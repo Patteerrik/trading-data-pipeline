@@ -1,8 +1,6 @@
 from src.extract import extract_market_data
 from src.load import save_raw_data, save_processed_data
-from src.transform import add_daily_returns
-from src.transform import add_moving_averages
-from src.transform import add_volatility
+from src.transform import add_daily_returns, add_moving_averages, add_volatility, add_atr 
 from src.config import (
     TICKERS,
     START_DATE,
@@ -18,6 +16,7 @@ from src.spark_transform import (
     save_spark_data,
     add_daily_return,
     add_spark_volatility,
+    add_spark_atr,
 )
 
 
@@ -34,6 +33,7 @@ def run_pandas_pipeline(tickers, start_date, end_date):
         data = add_daily_returns(data)
         data = add_volatility(data)
         data = add_moving_averages(data)
+        data = add_atr(data)
 
         save_raw_data(
             raw_data,
@@ -64,6 +64,7 @@ def run_spark_pipeline(tickers):
         df = add_20ma(df)
         df = add_daily_return(df)
         df = add_spark_volatility(df)
+        df = add_spark_atr(df)
 
         save_spark_data(
             df,

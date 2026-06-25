@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, avg, lag, stddev
+from pyspark.sql.functions import col, avg, lag, stddev, greatest, abs
 from pyspark.sql.window import Window
 
 
@@ -63,7 +63,6 @@ def add_daily_return(df):
 
     return df
 
-
 def add_spark_volatility(df):
     window_spec = (
         Window
@@ -77,3 +76,51 @@ def add_spark_volatility(df):
     )
 
     return df
+    
+
+def add_spark_atr(df):
+    window_spec = Window.orderBy("Price")
+
+    rolling_window = (
+        Window
+        .orderBy("Price")
+        .rowsBetween(-19, 0)
+    )
+
+    df = df.withColumn(
+        "Previous_Close_ATR",
+        lag("Close").over(window_spec),
+    )
+
+    df = df.withColumn(
+        "High_Low",
+        col("High") - col("Low"),
+    )
+
+    df = df.withColumn(
+        "High_Close",
+        abs(col("High") - col("Previous_Close_ATR")),
+    )
+
+    df = df.withColumn(
+        "Low_Close",
+        abs(col("Low") - col("Previous_Close_ATR")),
+    )
+
+    df = df.withColumn(
+        "True_Range_Spark",
+        greatest(
+            col("High_Low"),
+            col("High_Close"),
+            col("Low_Close"),
+        ),
+    )
+
+    df = df.withColumn(
+        "ATR_20D_Spark",
+        avg("True_Range_Spark").over(rolling_window),
+    )
+
+    return df
+    
+    
