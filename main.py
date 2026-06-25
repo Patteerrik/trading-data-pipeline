@@ -56,6 +56,7 @@ def run_pandas_pipeline(tickers, start_date, end_date):
 
 def run_spark_pipeline(tickers):
     spark = create_spark_session()
+    spark.sparkContext.setLogLevel("ERROR")
 
     for ticker in tickers:
         df = read_market_data(
