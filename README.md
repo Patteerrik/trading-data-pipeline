@@ -1,24 +1,26 @@
 # Trading Data Pipeline
 
 A Data Engineering project that extracts financial market data,
-processes it with Pandas and PySpark, stores the results in
-CSV and Parquet formats, and uploads processed Parquet output
-to Azure Blob Storage.
+cleans and structures raw datasets, processes them with Pandas
+and PySpark, stores the results in CSV and Parquet formats,
+and uploads processed Parquet output to Azure Blob Storage.
 
 ## Project Workflow
 
 ```text
 Yahoo Finance
     ↓
-Extract Data
+Extract and clean raw market data
     ↓
 Raw CSV Files
     ↓
 Pandas Transformations
+(daily returns, moving averages, volatility, ATR)
     ↓
 Processed CSV / Parquet
     ↓
 PySpark Transformations
+(daily returns, moving averages, volatility, ATR)
     ↓
 Spark Parquet Output
     ↓
@@ -28,8 +30,9 @@ Azure Blob Storage
 ## Example Output
 
 The PySpark pipeline processes multiple market datasets and
-calculates indicators such as moving averages, daily returns
-and 20-day volatility before storing the results as Parquet files.
+calculates indicators such as moving averages, daily returns,
+20-day volatility and ATR before storing the results as
+Parquet files.
 
 ![PySpark Output](assets/pyspark_output.png)
 
@@ -46,18 +49,18 @@ Period:
 
 ## Features
 
+## Features
+
 - Extract market data from Yahoo Finance
-- Process multiple market tickers using both Pandas and PySpark
-- Calculate daily returns using Pandas
-- Calculate daily returns using PySpark
-- Calculate moving averages using Pandas
-- Calculate moving averages using PySpark
-- Calculate 20-day volatility using Pandas
-- Calculate 20-day volatility using PySpark
-- Store datasets in CSV format
-- Store datasets in Parquet format
-- Structured ETL pipeline
-- Upload multiple processed Parquet files to Azure Blob Storage
+- Clean and structure raw market data with a dedicated `Date` column
+- Process multiple market tickers using Pandas and PySpark
+- Calculate daily returns
+- Calculate moving averages
+- Calculate 20-day volatility
+- Calculate 20-day ATR (Average True Range)
+- Store processed datasets in CSV and Parquet format
+- Upload processed Parquet files to Azure Blob Storage
+- Use a structured ETL pipeline with configurable tickers, dates and paths
 
 ## Azure Upload
 
@@ -122,8 +125,8 @@ trading-data-pipeline/
 
 ## Planned Improvements
 
+- Create output directories automatically when the pipeline runs
 - Make the upload step reusable for different file types and containers
 - Add basic validation and logging to the transformation and upload steps
-- Add more market indicators, such as ATR and rolling volume
-- Expand the PySpark pipeline with additional transformations
+- Add more market indicators, such as rolling volume
 - Explore a Databricks-based version of the pipeline

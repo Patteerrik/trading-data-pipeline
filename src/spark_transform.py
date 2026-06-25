@@ -30,7 +30,7 @@ def save_spark_data(df, filepath):
 def add_20ma(df):
     window_spec = (
         Window
-        .orderBy("Price")
+        .orderBy("Date")
         .rowsBetween(-19, 0)
     )
 
@@ -45,7 +45,7 @@ def add_20ma(df):
 def add_daily_return(df):
     window_spec = (
         Window
-        .orderBy("Price")
+        .orderBy("Date")
     )
 
     df = df.withColumn(
@@ -66,7 +66,7 @@ def add_daily_return(df):
 def add_spark_volatility(df):
     window_spec = (
         Window
-        .orderBy("price")
+        .orderBy("Date")
         .rowsBetween(-19, 0)
     )
 
@@ -76,14 +76,14 @@ def add_spark_volatility(df):
     )
 
     return df
-    
+
 
 def add_spark_atr(df):
-    window_spec = Window.orderBy("Price")
+    window_spec = Window.orderBy("Date")
 
     rolling_window = (
         Window
-        .orderBy("Price")
+        .orderBy("Date")
         .rowsBetween(-19, 0)
     )
 
