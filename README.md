@@ -57,7 +57,13 @@ Period:
 - Store datasets in CSV format
 - Store datasets in Parquet format
 - Structured ETL pipeline
-- Upload processed Parquet files to Azure Blob Storage
+- Upload multiple processed Parquet files to Azure Blob Storage
+
+## Azure Upload
+
+The pipeline includes a reusable upload step that scans the
+`data/processed/` directory and uploads all processed
+Parquet files to Azure Blob Storage.
 
 ## PySpark Output
 
@@ -116,7 +122,6 @@ trading-data-pipeline/
 
 ## Planned Improvements
 
-- Support uploading multiple processed files to Azure Blob Storage
 - Make the upload step reusable for different file types and containers
 - Add basic validation and logging to the transformation and upload steps
 - Add more market indicators, such as ATR and rolling volume
