@@ -13,32 +13,33 @@ from src.spark_transform import (
 )
 
 
-def main():
-    tickers = [
-        "SPY",
-        "QQQ",
-        "GLD",
-        "TLT",
-    ]
+TICKERS = [
+    "SPY",
+    "QQQ",
+    "GLD",
+    "TLT",
+]
 
-    start_date = "2020-01-01"
-    end_date = "2025-12-31"
+START_DATE = "2020-01-01"
+END_DATE = "2025-12-31"
 
+
+def run_pandas_pipeline(tickers, start_date, end_date):
     for ticker in tickers:
         data = extract_market_data(
-            ticker, 
-            start_date, 
-            end_date
+            ticker,
+            start_date,
+            end_date,
         )
 
+        raw_data = data.copy()
+
         data = add_daily_returns(data)
-
         data = add_volatility(data)
-
         data = add_moving_averages(data)
 
         save_raw_data(
-            data,
+            raw_data,
             f"data/raw/{ticker.lower()}_raw.csv",
         )
 
@@ -52,17 +53,10 @@ def main():
             f"data/processed/{ticker.lower()}_processed.parquet",
         )
 
-if __name__ == "__main__":
-    main()
 
-    tickers = [
-        "SPY",
-        "QQQ",
-        "GLD",
-        "TLT",
-    ]
-
+def run_spark_pipeline(tickers):
     spark = create_spark_session()
+    spark.sparkContext.setLogLevel("ERROR")
 
     for ticker in tickers:
         df = read_market_data(
@@ -71,9 +65,7 @@ if __name__ == "__main__":
         )
 
         df = add_20ma(df)
-
         df = add_daily_return(df)
-
         df = add_spark_volatility(df)
 
         save_spark_data(
@@ -81,13 +73,17 @@ if __name__ == "__main__":
             f"data/spark/{ticker.lower()}_spark_processed.parquet",
         )
 
-    df.select(
-        "Price",
-        "Close",
-        "20MA_Spark",
-        "Previous_Close",
-        "Daily_Return_Spark",
-        "Volatility_20D_Spark",
-    ).show(10)
+    spark.stop()
 
-    df.printSchema()
+
+def main():
+    run_pandas_pipeline(
+        TICKERS,
+        START_DATE,
+        END_DATE,
+    )
+    run_spark_pipeline(TICKERS)
+
+
+if __name__ == "__main__":
+    main()
