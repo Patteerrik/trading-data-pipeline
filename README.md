@@ -7,10 +7,14 @@ and uploads processed Parquet output to Azure Blob Storage.
 
 ## Project Workflow
 
+## Project Workflow
+
 ```text
 Yahoo Finance
     ↓
-Extract and clean raw market data
+Extract Market Data
+    ↓
+Validate Data
     ↓
 Raw CSV Files
     ↓
@@ -61,6 +65,17 @@ Period:
 - Store processed datasets in CSV and Parquet format
 - Upload processed Parquet files to Azure Blob Storage
 - Use a structured ETL pipeline with configurable tickers, dates and paths
+
+## Data Validation
+
+Before any transformations are applied, the pipeline validates
+that:
+
+- Market data is not empty
+- Required columns are present
+- Data follows the expected schema
+
+This helps fail early and prevents downstream processing errors.
 
 ## Azure Upload
 
