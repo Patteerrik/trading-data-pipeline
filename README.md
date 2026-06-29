@@ -7,8 +7,6 @@ and uploads processed Parquet output to Azure Blob Storage.
 
 ## Project Workflow
 
-## Project Workflow
-
 ```text
 Yahoo Finance
     ↓
@@ -50,8 +48,6 @@ Tickers:
 
 Period:
 - 2020-01-01 to 2025-12-31
-
-## Features
 
 ## Features
 
@@ -140,8 +136,8 @@ trading-data-pipeline/
 
 ## Planned Improvements
 
-- Create output directories automatically when the pipeline runs
-- Make the upload step reusable for different file types and containers
-- Add basic validation and logging to the transformation and upload steps
-- Add more market indicators, such as rolling volume
 - Explore a Databricks-based version of the pipeline
+- Add unit tests for extraction, validation and transformation logic
+- Make the upload step reusable for different file types and containers
+- Add more advanced logging and error handling
+- Explore orchestration with Airflow or another workflow tool
