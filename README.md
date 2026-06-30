@@ -1,9 +1,9 @@
 # Trading Data Pipeline
 
 A Data Engineering project that extracts financial market data,
-cleans and structures raw datasets, processes them with Pandas
-and PySpark, stores the results in CSV and Parquet formats,
-and uploads processed Parquet output to Azure Blob Storage.
+processes it using Pandas and PySpark, stores the results in
+CSV and Parquet formats, uploads processed data to Azure Blob
+Storage, and analyzes it in Databricks using Apache Spark.
 
 ## Project Workflow
 
