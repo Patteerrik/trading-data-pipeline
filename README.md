@@ -35,12 +35,22 @@ Spark Analysis / Delta Table
 
 ## Example Output
 
-The PySpark pipeline processes multiple market datasets and
-calculates indicators such as moving averages, daily returns,
-20-day volatility and ATR before storing the results as
-Parquet files.
+The pipeline processes multiple market datasets using Pandas,
+PySpark and Databricks, calculating indicators such as moving
+averages, daily returns, 20-day volatility and ATR before
+storing the results as Parquet files.
+
+### Local PySpark pipeline
 
 ![PySpark Output](assets/pyspark_output.png)
+
+### Databricks Analysis
+
+The processed Parquet files are loaded into Databricks where
+PySpark is used to perform filtering, transformations and
+aggregations.
+
+![Databricks Output](assets/databricks_output.png)
 
 ## Sample Dataset
 
@@ -64,6 +74,7 @@ Period:
 - Calculate 20-day ATR (Average True Range)
 - Store processed datasets in CSV and Parquet format
 - Upload processed Parquet files to Azure Blob Storage
+- Analyze processed data in Databricks using Apache Spark
 - Use a structured ETL pipeline with configurable tickers, dates and paths
 
 ## Data Validation
@@ -107,14 +118,14 @@ data/spark/
 - Python
 - Pandas
 - PySpark
+- Databricks
+- Delta Lake
+- Azure Blob Storage
 - PyArrow
 - yfinance
-- Azure Blob Storage
 - python-dotenv
 - azure-storage-blob
 - GitHub Codespaces
-- Databricks
-- Delta Lake
 
 ## Project Structure
 
