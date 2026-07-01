@@ -1,9 +1,9 @@
 # Trading Data Pipeline
 
 A Data Engineering project that extracts financial market data,
-processes it using Pandas and PySpark, stores the results in
-CSV and Parquet formats, uploads processed data to Azure Blob
-Storage, and analyzes it in Databricks using Apache Spark.
+processes it using Pandas and PySpark, stores processed datasets
+in CSV and Parquet formats, uploads them to Azure Blob Storage,
+and analyzes them in Databricks using Apache Spark.
 
 ## Project Workflow
 
@@ -36,9 +36,9 @@ Spark Analysis / Delta Table
 ## Example Output
 
 The pipeline processes multiple market datasets using Pandas,
-PySpark and Databricks, calculating indicators such as moving
-averages, daily returns, 20-day volatility and ATR before
-storing the results as Parquet files.
+PySpark and Databricks, enriching the data with daily returns,
+moving averages, volatility and ATR before storing the processed
+datasets as Parquet files.
 
 ### Local PySpark pipeline
 
@@ -76,6 +76,7 @@ Period:
 - Upload processed Parquet files to Azure Blob Storage
 - Analyze processed data in Databricks using Apache Spark
 - Use a structured ETL pipeline with configurable tickers, dates and paths
+- Verify extraction and transformation logic with automated unit tests
 
 ## Data Validation
 
@@ -87,6 +88,25 @@ that:
 - Data follows the expected schema
 
 This helps fail early and prevents downstream processing errors.
+
+## Unit Testing
+
+The project includes automated unit tests that verify the core
+validation and transformation logic.
+
+Current unit tests cover:
+
+- Market data validation
+- Daily return calculation
+- Moving average calculations
+
+Run the tests with:
+
+```bash
+pytest
+```
+
+![Pytest Output](assets/pytest_output.png)
 
 ## Azure Upload
 
@@ -123,10 +143,11 @@ data/spark/
 - Databricks
 - Delta Lake
 - Azure Blob Storage
+- pytest
 - PyArrow
 - yfinance
-- python-dotenv
 - azure-storage-blob
+- python-dotenv
 - GitHub Codespaces
 
 ## Project Structure
@@ -136,7 +157,8 @@ trading-data-pipeline/
 │
 ├── assets/
 │   ├── pyspark_output.png
-│   └── databricks_output.png
+│   ├── databricks_output.png
+│   └── pytest_output.png
 │
 ├── data/
 │   ├── raw/
@@ -163,7 +185,7 @@ trading-data-pipeline/
 ## Planned Improvements
 
 - Connect Databricks directly to Azure Blob Storage
-- Add unit tests for extraction, validation and transformation logic
+- Increase unit test coverage
 - Add more advanced logging and error handling
 - Make the upload step reusable for different file types and containers
 - Explore orchestration with Airflow or another workflow tool
