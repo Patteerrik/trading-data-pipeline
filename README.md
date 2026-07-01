@@ -27,6 +27,10 @@ PySpark Transformations
 Spark Parquet Output
     ↓
 Azure Blob Storage
+    ↓
+Databricks
+    ↓
+Spark Analysis / Delta Table
 ```
 
 ## Example Output
@@ -109,6 +113,8 @@ data/spark/
 - python-dotenv
 - azure-storage-blob
 - GitHub Codespaces
+- Databricks
+- Delta Lake
 
 ## Project Structure
 
@@ -123,6 +129,11 @@ trading-data-pipeline/
 │   ├── processed/
 │   └── spark/
 │
+├── databricks/
+│   ├── README.md
+│   └── notebooks/
+│       └── trading_data_pipeline_databricks.py
+│
 ├── src/
 │   ├── extract.py
 │   ├── transform.py
@@ -131,12 +142,13 @@ trading-data-pipeline/
 │   └── upload_to_azure.py
 │
 ├── main.py
+├── requirements.txt
 └── README.md
 ```
 
 ## Planned Improvements
 
-- Explore a Databricks-based version of the pipeline
+- Connect Databricks directly to Azure Blob Storage
 - Add unit tests for extraction, validation and transformation logic
 - Make the upload step reusable for different file types and containers
 - Add more advanced logging and error handling
