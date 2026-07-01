@@ -1,34 +1,45 @@
 # Databricks Integration
 
-This folder documents the Databricks part of the Trading Data Pipeline project.
+This folder contains the Databricks part of the Trading Data Pipeline project.
 
-The goal is to extend the existing local PySpark pipeline by running Spark-based processing in Databricks and connecting the project to a cloud-based data engineering workflow.
+The goal is to extend the local PySpark pipeline by analyzing processed market data in Databricks as part of a cloud-based data engineering workflow.
 
-## Planned Databricks Workflow
+Databricks is currently used to analyze processed Parquet data after it has been imported into a Delta table. The next planned step is to connect Databricks directly to Azure Blob Storage using a production-style authentication setup.
+
+## Current Workflow
+
+```text
+Processed Parquet Files
+        ↓
+Manual Upload
+        ↓
+Delta Table
+        ↓
+Databricks Notebook
+        ↓
+PySpark Analysis
+```
+
+## Planned Workflow
 
 ```text
 Processed Parquet Files
         ↓
 Azure Blob Storage
         ↓
-Databricks Notebook
+Databricks
         ↓
-PySpark Transformations / Validation
-        ↓
-Databricks Output
+PySpark Analysis
 ```
 
 ## Current Progress
 
-The project now includes a Databricks notebook demonstrating basic Spark operations on processed market data.
+The Databricks notebook currently demonstrates:
 
-Current functionality includes:
-
-- Loading processed Parquet data into Databricks
+- Loading processed market data
 - Creating a Delta table
-- Reading data using Spark
-- Selecting specific columns
-- Filtering rows
+- Reading data with Apache Spark
+- Selecting and filtering data
 - Creating new columns with `withColumn()`
 - Sorting data with `orderBy()`
 - Aggregating data with `groupBy()`

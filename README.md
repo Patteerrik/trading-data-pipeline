@@ -90,11 +90,13 @@ This helps fail early and prevents downstream processing errors.
 
 ## Azure Upload
 
-The pipeline includes a reusable upload step that scans the
-`data/processed/` directory and uploads all processed
-Parquet files to Azure Blob Storage.
+The pipeline uploads processed Parquet files to Azure Blob
+Storage using a reusable upload function.
 
-## PySpark Output
+Each processed dataset is uploaded automatically, making it
+available for cloud-based storage and downstream processing.
+
+## Output Files
 
 The PySpark pipeline currently processes the following tickers:
 
@@ -133,7 +135,8 @@ data/spark/
 trading-data-pipeline/
 │
 ├── assets/
-│   └── pyspark_output.png
+│   ├── pyspark_output.png
+│   └── databricks_output.png
 │
 ├── data/
 │   ├── raw/
@@ -161,6 +164,6 @@ trading-data-pipeline/
 
 - Connect Databricks directly to Azure Blob Storage
 - Add unit tests for extraction, validation and transformation logic
-- Make the upload step reusable for different file types and containers
 - Add more advanced logging and error handling
+- Make the upload step reusable for different file types and containers
 - Explore orchestration with Airflow or another workflow tool
